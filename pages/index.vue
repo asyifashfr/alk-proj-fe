@@ -52,5 +52,9 @@
   </script>
   
   <style lang="scss" scoped>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a013fdb8e8aeed52709da35480d10ca09f48701e
   </style>
   
