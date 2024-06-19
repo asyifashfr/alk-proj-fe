@@ -1,4 +1,5 @@
 <template>
+  
     <div class="container mx-auto px-4 py-8">
       <header class="text-lg font-bold mb-8 text-center">
         Our Articles

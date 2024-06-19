@@ -17,14 +17,13 @@ import { useRoute } from 'vue-router';
 export default {
 data() {
   return {
-    isLoggedIn: false
+    isLoggedIn: true
   };
 },
 setup() {
   const route = useRoute();
   
   function isActive(path) {
-    // This will return true if the current route's path matches the passed path
     return route.path === path;
   }
   
