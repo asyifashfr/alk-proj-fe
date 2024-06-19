@@ -12,28 +12,28 @@
         >
           <h3 class="text-lg font-medium mb-2">{{ article.title }}</h3>
           <p class="text-gray-600 mb-4">{{ truncateText(article.content) }}</p>
-          <div class="flex justify-between">
+          <div class="flex justify-end space-x-2">
             <button
-              @click="editArticle(index)"
-              class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-            >
-              Edit
-            </button>
-            <button
-              @click="deleteArticle(index)"
-              class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-            >
-              Delete
-            </button>
+            @click="editArticle(index)"
+            class="bg-gray-300 text-gray-800 p-2 rounded-md hover:bg-gray-400"
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+          <button
+            @click="deleteArticle(index)"
+            class="bg-gray-300 text-gray-800 p-2 rounded-md hover:bg-gray-400"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
           </div>
         </div>
       </div>
       <!-- Floating "+" button -->
       <button
         @click="goToNewArticle"
-        class="fixed bottom-8 right-10 bg-blue-500 text-white p-6 rounded-full shadow-lg hover:bg-blue-600 large-button"
+        class="fixed bottom-8 right-10 bg-blue-500 text-white font-bold p-6 rounded-full shadow-lg hover:bg-blue-600 large-button"
       >
-        Add Article
+        Add New Article
       </button>
     </div>
   </template>
