@@ -2,7 +2,7 @@
     <nav>
         <ul>
           <li><a href="/" class="active">Home</a></li>
-          <li v-if="isLoggedIn"><a href="/">Manage Articles</a></li>
+          <li v-if="isLoggedIn"><a href="/manageArticle">Manage Articles</a></li>
           <li v-if="isLoggedIn"><a href="#" @click="logout">Logout</a></li>
           <li v-else><a href="/login">Login</a></li>
         </ul>
