@@ -16,7 +16,7 @@
         <!-- All rticles -->
         <div class="w-full lg:w-2/5 space-y-4 cursor-pointer" v-if="articles && articles.length > 0">
           <div v-for="(article, index) in articles" :key="index" class="p-4 bg-white rounded-lg shadow-md"  @click="setMainArticle(article)">
-            <h3 class="text-md font-medium mb-1">{{ article.title }} <span class="text-gray-400 text-sm ml-1">by {{ articles[0].username }}</span></h3>
+            <h3 class="text-md font-medium mb-1">{{ article.title }} <span class="text-gray-400 text-sm ml-1">by {{ article.username }}</span></h3>
             <p class="text-gray-600 text-sm">{{ truncateText(article.content) }}</p>
           </div>
         </div>
