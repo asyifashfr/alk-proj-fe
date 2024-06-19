@@ -45,7 +45,7 @@ if (!token) {
   return;
 }
 try {
-  const response = await fetch('http://localhost:8080/articles', {
+  const response = await fetch('http://localhost:8080/article/my', {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -60,6 +60,7 @@ try {
 });
 
 const editArticle = (index) => {
+  router.push(`/editArticle/${articles.value[index].id}`);
 console.log('Editing article:', articles.value[index]);
 };
 
@@ -67,7 +68,7 @@ const deleteArticle = async (index) => {
   const articleId = articles.value[index].id;
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch(`http://localhost:8080/articles/delete?id=${articleId}`, {
+    const response = await fetch(`http://localhost:8080/article/delete?id=${articleId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -88,8 +89,6 @@ return words.length > 20 ? words.slice(0, 20).join(' ') + '...' : text;
 
 const goToNewArticle = () => {
 router.push('/newArticle');
-// this.$router.push('/newArticle');
-
 };
 </script>
 

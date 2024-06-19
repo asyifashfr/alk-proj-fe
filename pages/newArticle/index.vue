@@ -56,7 +56,7 @@ const addArticle = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:8080/articles/create', {
+    const response = await fetch('http://localhost:8080/article/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

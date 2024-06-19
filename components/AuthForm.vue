@@ -42,7 +42,7 @@ export default {
       return this.mode === 'login';
     },
     apiUrl() {
-      return `http://localhost:8080/users/${this.isLogin ? 'login' : 'register'}`;
+      return `http://localhost:8080/user/${this.isLogin ? 'login' : 'register'}`;
     }
   },
   methods: {

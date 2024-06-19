@@ -34,7 +34,7 @@
     },
     async mounted() {
       try {
-        const response = await fetch('http://localhost:8080/articles/all');
+        const response = await fetch('http://localhost:8080/article/all');
         this.articles = await response.json();
         this.mainArticle = this.articles[0];
         console.log(this.articles)
