@@ -87,7 +87,9 @@ return words.length > 20 ? words.slice(0, 20).join(' ') + '...' : text;
 };
 
 const goToNewArticle = () => {
-router.push('/newarticle');
+router.push('/newArticle');
+// this.$router.push('/newArticle');
+
 };
 </script>
 
