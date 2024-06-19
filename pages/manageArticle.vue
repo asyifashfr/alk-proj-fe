@@ -63,8 +63,22 @@ const editArticle = (index) => {
 console.log('Editing article:', articles.value[index]);
 };
 
-const deleteArticle = (index) => {
-articles.value.splice(index, 1);
+const deleteArticle = async (index) => {
+  const articleId = articles.value[index].id;
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`http://localhost:8080/articles/delete?id=${articleId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!response.ok) throw new Error('Failed to delete article');
+    articles.value.splice(index, 1);
+  } catch (error) {
+    console.error('Error deleting article:', error.message);
+  }
 };
 
 const truncateText = (text) => {

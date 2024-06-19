@@ -47,7 +47,6 @@
   const router = useRouter();
   
   const addArticle = () => {
-    // TODO: add article
     router.push('/managearticle');
   };
   </script>
