@@ -20,15 +20,15 @@
         <!-- Other Articles -->
         <div class="w-full lg:w-2/5 space-y-4">
           <div class="p-4 bg-white rounded-lg shadow-md">
-            <h3 class="text-md font-medium mb-1">The Rise of JavaScript Frameworks and Their Impact on Web Development</h3>
+            <h3 class="text-md font-medium mb-3">The Rise of JavaScript Frameworks and Their Impact on Web Development</h3>
             <p class="text-gray-600 text-sm">{{ truncateText(otherArticles[0].content) }}</p>
           </div>
           <div class="p-4 bg-white rounded-lg shadow-md">
-            <h3 class="text-md font-medium mb-1">Exploring the Benefits of Serverless Architecture in Modern Applications</h3>
+            <h3 class="text-md font-medium mb-3">Exploring the Benefits of Serverless Architecture in Modern Applications</h3>
             <p class="text-gray-600 text-sm">{{ truncateText(otherArticles[1].content) }}</p>
           </div>
           <div class="p-4 bg-white rounded-lg shadow-md">
-            <h3 class="text-md font-medium mb-1">The Role of Artificial Intelligence in Enhancing User Experience</h3>
+            <h3 class="text-md font-medium mb-3">The Role of Artificial Intelligence in Enhancing User Experience</h3>
             <p class="text-gray-600 text-sm">{{ truncateText(otherArticles[2].content) }}</p>
           </div>
         </div>
@@ -59,6 +59,6 @@
   </script>
   
   <style lang="scss" scoped>
-  
+
   </style>
   
