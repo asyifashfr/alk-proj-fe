@@ -39,6 +39,9 @@
                   <i class="fas fa-paper-plane"></i>
                 </button>
               </div>
+              <div v-else class="mt-4 text-gray-600">
+                Please log in to add a comment.
+              </div>
             </div>          
           </div>
         </div>
@@ -74,16 +77,12 @@ import jwtDecode from 'jwt-decode';
     async mounted() {
       try {
         const token = localStorage.getItem('token');
-        if (!token) {
-          console.error('No token found');
-          this.$router.push('/login');
-          return;
-        } else {
+        if (token) {
           this.isAuthenticated = true;
           const decodedToken = jwtDecode(token);
           this.currentUser = decodedToken.username;
         }
-          const response = await fetch('http://localhost:8080/article/all');
+        const response = await fetch('http://localhost:8080/article/all');
         this.articles = await response.json();
         this.articles.forEach(article => {
           if (!article.likes) {
