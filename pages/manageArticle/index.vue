@@ -7,7 +7,7 @@
       <div
         v-for="(article, index) in articles"
         :key="index"
-        class="p-4 bg-white rounded-lg shadow-md"
+        class="p-4 bg-white rounded-lg shadow-md flex flex-col justify-between"
       >
         <h3 class="text-lg font-medium mb-2">{{ article.title }}</h3>
         <p class="text-gray-600 mb-4">{{ truncateText(article.content) }}</p>
