@@ -42,6 +42,7 @@ onMounted(async () => {
 const token = localStorage.getItem('token');
 if (!token) {
   console.error('No token found');
+  router.push('/login');
   return;
 }
 try {
