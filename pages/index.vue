@@ -1,5 +1,4 @@
 <template>
-  
     <div class="container mx-auto px-4 py-8">
       <div class="flex flex-col lg:flex-row gap-8">
         <!-- Article Preview -->
@@ -7,8 +6,40 @@
           <div class="p-6 bg-white">
             <h2 class="text-lg font-semibold mb-1 text-center">{{ mainArticle.title }}</h2>
             <span class="text-gray-600 text-sm block mb-4 text-center">by {{ mainArticle.username }}</span>
-            <div class="text-gray-700 mb-4" v-html="mainArticle.content">
+            <div class="text-gray-700 mb-4" v-html="mainArticle.content"></div>
+            <hr class="border-t border-gray-200 my-4">
+            <div class="flex space-x-4 text-gray-600">
+              <div class="flex items-center space-x-2">
+                <button @click="likeArticle(mainArticle)" class="p-2 rounded-md hover:bg-gray-200">
+                  <i class="fas fa-heart"></i>
+                </button>
+                <span>{{ mainArticle.likes }}</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <button class="p-2 rounded-md hover:bg-gray-200">
+                  <i class="fas fa-comment"></i>
+                </button>
+                <span>{{ mainArticle.comments.length }}</span>
+              </div>
             </div>
+            <div>
+              <h3 class="text-lg mb-2 mt-4"><strong>Comments</strong></h3>
+              <div v-for="(comment, index) in mainArticle.comments" :key="index" class="mb-2">
+                <p class="text-gray-800 font-semibold">{{ comment.username }}</p>
+                <p class="text-gray-600">{{ comment.text }}</p>
+              </div>
+              <div v-if="isAuthenticated" class="mt-4 flex items-center space-x-2">
+                <input
+                  v-model="newComment"
+                  type="text"
+                  placeholder="Add a comment..."
+                  class="w-full p-2 border border-gray-300 rounded-full mt-1 p-4"
+                />
+                <button @click="addComment(mainArticle)" class="bg-black text-white py-2 px-4 rounded-full hover:bg-gray-600 mt-2">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>          
           </div>
         </div>
         <!-- All rticles -->
@@ -28,17 +59,40 @@
   </template>
   
   <script>
+import jwtDecode from 'jwt-decode';
+
   export default {
     data() {
       return {
         articles: [],
-        mainArticle: null
+        mainArticle: null,
+        newComment: '',
+        isAuthenticated: false,
+        currentUser: ''
       };
     },
     async mounted() {
       try {
-        const response = await fetch('http://localhost:8080/article/all');
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error('No token found');
+          this.$router.push('/login');
+          return;
+        } else {
+          this.isAuthenticated = true;
+          const decodedToken = jwtDecode(token);
+          this.currentUser = decodedToken.username;
+        }
+          const response = await fetch('http://localhost:8080/article/all');
         this.articles = await response.json();
+        this.articles.forEach(article => {
+          if (!article.likes) {
+            article.likes = 0;
+          }
+          if (!article.comments) {
+          article.comments = [];
+        }
+        });
         this.mainArticle = this.articles[0];
         console.log(this.articles)
       } catch (error) {
@@ -52,6 +106,18 @@
       setMainArticle(article) {
         console.log("as")
         this.mainArticle = article;
+      },
+      likeArticle(article) {
+        article.likes++;
+      },
+      addComment(article) {
+        if (this.newComment.trim() !== '') {
+          article.comments.push({
+            username: this.currentUser,
+            text: this.newComment
+          });
+          this.newComment = '';
+        }
       }
     }
   }
