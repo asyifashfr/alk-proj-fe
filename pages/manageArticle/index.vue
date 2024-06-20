@@ -15,7 +15,7 @@
           <button @click="editArticle(index)" class="bg-gray-300 text-gray-800 p-2 rounded-md hover:bg-gray-400">
             <i class="fas fa-edit"></i>
           </button>
-          <button @click="deleteArticle(index)" class="bg-gray-300 text-gray-800 p-2 rounded-md hover:bg-gray-400">
+          <button @click="confirmDeleteArticle(index)" class="bg-gray-300 text-gray-800 p-2 rounded-md hover:bg-gray-400">
             <i class="fas fa-trash"></i>
           </button>
         </div>
@@ -62,6 +62,13 @@ try {
 const editArticle = (index) => {
   router.push(`/editArticle/${articles.value[index].id}`);
 console.log('Editing article:', articles.value[index]);
+};
+
+const confirmDeleteArticle = (index) => {
+  const confirmed = window.confirm('Are you sure you want to delete this article?');
+  if (confirmed) {
+    deleteArticle(index);
+  }
 };
 
 const deleteArticle = async (index) => {
