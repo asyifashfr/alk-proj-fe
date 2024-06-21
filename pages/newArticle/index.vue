@@ -17,6 +17,7 @@
         </div>
         <div class="mb-4">
           <label for="content" class="block text-gray-700">Content</label>
+          <!-- <div id="quill-editor" class="w-full p-2 border border-gray-300 rounded mt-1"></div> -->
           <textarea
             v-model="newArticle.content"
             id="content"
@@ -39,7 +40,10 @@
 </template>
 
 <script setup>
-import { ref} from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
 
 const newArticle = ref({
   title: '',
@@ -47,6 +51,26 @@ const newArticle = ref({
 });
 
 const router = useRouter();
+let quill;
+
+onMounted(() => {
+  quill = new Quill('#quill-editor', {
+    theme: 'snow',
+    placeholder: 'Compose an epic...',
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        ['link', 'blockquote', 'code-block', 'image'],
+        [{ list: 'ordered' }, { list: 'bullet' }]
+      ]
+    }
+  });
+
+  quill.on('text-change', () => {
+    newArticle.value.content = quill.root.innerHTML;
+  });
+});
 
 const addArticle = async () => {
   const token = localStorage.getItem('token');
@@ -83,4 +107,9 @@ const addArticle = async () => {
 </script>
 
 <style scoped>
+@import 'quill/dist/quill.snow.css';
+
+#quill-editor {
+  height: 200px; /* Set the desired height for the editor */
+}
 </style>
