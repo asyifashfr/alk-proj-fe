@@ -105,8 +105,28 @@
         this.mainArticle = article;
         this.fetchComments(article.id);
       },
-      likeArticle(article) {
-        article.likes++;
+      async likeArticle(article) {
+        try {
+          const response = await fetch('http://localhost:8080/article/like', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+              },
+              body: JSON.stringify({
+                article_id: article.id,
+              })
+            })
+
+            if (response.ok){
+              this.mainArticle.likes++;
+            } else {
+              console.log("error: ", response);
+            }
+        } catch (error) {
+          console.log("error: ", error)
+        }
+        
       },
       async addComment(article) {
         if (this.newComment.trim() !== '') {
