@@ -20,7 +20,7 @@
           </button>
         </li>
       </ul>
-      <div v-if="showAuthPopup" class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+      <div v-if="showAuthPopup" class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
         <div v-if="isLoggedIn" @click="logout" class="p-4 cursor-pointer hover:bg-gray-200 rounded-lg">Logout</div>
         <div v-else @click="redirectToLogin" class="p-4 cursor-pointer hover:bg-gray-200 rounded-lg">Login</div>
       </div>
