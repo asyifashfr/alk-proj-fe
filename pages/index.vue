@@ -111,13 +111,31 @@ import jwtDecode from 'jwt-decode';
       likeArticle(article) {
         article.likes++;
       },
-      addComment(article) {
+      async addComment(article) {
         if (this.newComment.trim() !== '') {
-          article.comments.push({
-            username: this.currentUser,
-            text: this.newComment
-          });
-          this.newComment = '';
+          try {
+            const response = await fetch('http://localhost:8080/comment/create', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+              },
+              body: JSON.stringify({
+                article_id: article.id,
+                content: this.newComment
+              })
+            })
+
+            if (response.ok){
+              const newComment = await response.json();
+              this.comments.push(newComment);
+              this.newComment = '';
+            } else {
+              console.log("error: ", response);
+            }
+          } catch (error) {
+            console.log("error: ", error)
+          }
         }
       },
       async fetchComments(articleId) {
