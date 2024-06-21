@@ -25,7 +25,7 @@
             <div>
               <h3 class="text-lg mb-2 mt-4"><strong>Comments</strong></h3>
               <div v-for="(comment, index) in comments" :key="index" class="mb-2">
-                <p class="text-gray-800 font-semibold">{{ comment.User.username }}</p>
+                <p class="text-gray-800 font-semibold">{{ comment.username }}</p>
                 <p class="text-gray-600">{{ comment.content }}</p>
               </div>
               <div v-if="isAuthenticated" class="mt-4 flex items-center space-x-2">
@@ -82,6 +82,7 @@
       try {
         const response = await fetch('http://localhost:8080/article/all');
         this.articles = await response.json();
+        console.log(this.articles)
         this.articles.forEach(article => {
           if (!article.likes) {
             article.likes = 0;
@@ -138,6 +139,7 @@
           const response = await fetch(`http://localhost:8080/comment?article_id=${articleId}`);
           const comments = await response.json();
           this.comments = comments;
+          console.log(this.comments);
         } catch (error) {
           console.error(error);
           this.comments = [];
