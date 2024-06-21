@@ -19,14 +19,14 @@
                 <button class="p-2 rounded-md hover:bg-gray-200">
                   <i class="fas fa-comment"></i>
                 </button>
-                <span>{{ mainArticle.comments.length }}</span>
+                <span>{{ comments.length }}</span>
               </div>
             </div>
             <div>
               <h3 class="text-lg mb-2 mt-4"><strong>Comments</strong></h3>
-              <div v-for="(comment, index) in mainArticle.comments" :key="index" class="mb-2">
-                <p class="text-gray-800 font-semibold">{{ comment.username }}</p>
-                <p class="text-gray-600">{{ comment.text }}</p>
+              <div v-for="(comment, index) in comments" :key="index" class="mb-2">
+                <p class="text-gray-800 font-semibold">{{ comment.user_id }}</p>
+                <p class="text-gray-600">{{ comment.content }}</p>
               </div>
               <div v-if="isAuthenticated" class="mt-4 flex items-center space-x-2">
                 <input
@@ -61,13 +61,14 @@
     </div>
   </template>
   
-  <script>
+<script>
 import jwtDecode from 'jwt-decode';
 
   export default {
     data() {
       return {
         articles: [],
+        comments: [],
         mainArticle: null,
         newComment: '',
         isAuthenticated: false,
@@ -80,7 +81,8 @@ import jwtDecode from 'jwt-decode';
         if (token) {
           this.isAuthenticated = true;
           const decodedToken = jwtDecode(token);
-          this.currentUser = decodedToken.username;
+          console.log(decodedToken);
+          this.currentUser = "blm";
         }
         const response = await fetch('http://localhost:8080/article/all');
         this.articles = await response.json();
@@ -93,7 +95,7 @@ import jwtDecode from 'jwt-decode';
         }
         });
         this.mainArticle = this.articles[0];
-        console.log(this.articles)
+        this.fetchComments(this.mainArticle.id);
       } catch (error) {
         console.error(error);
       }
@@ -103,8 +105,8 @@ import jwtDecode from 'jwt-decode';
         return text.length > lim ? text.slice(0, lim) + '...' : text;
       },
       setMainArticle(article) {
-        console.log("as")
         this.mainArticle = article;
+        this.fetchComments(article.id);
       },
       likeArticle(article) {
         article.likes++;
@@ -116,6 +118,16 @@ import jwtDecode from 'jwt-decode';
             text: this.newComment
           });
           this.newComment = '';
+        }
+      },
+      async fetchComments(articleId) {
+        try {
+          const response = await fetch(`http://localhost:8080/comment?article_id=${articleId}`);
+          const comments = await response.json();
+          this.comments = comments;
+        } catch (error) {
+          console.error(error);
+          this.comments = [];
         }
       }
     }
