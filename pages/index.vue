@@ -25,7 +25,7 @@
             <div>
               <h3 class="text-lg mb-2 mt-4"><strong>Comments</strong></h3>
               <div v-for="(comment, index) in comments" :key="index" class="mb-2">
-                <p class="text-gray-800 font-semibold">{{ comment.user_id }}</p>
+                <p class="text-gray-800 font-semibold">{{ comment.User.username }}</p>
                 <p class="text-gray-600">{{ comment.content }}</p>
               </div>
               <div v-if="isAuthenticated" class="mt-4 flex items-center space-x-2">
@@ -62,8 +62,6 @@
   </template>
   
 <script>
-import jwtDecode from 'jwt-decode';
-
   export default {
     data() {
       return {
@@ -76,14 +74,12 @@ import jwtDecode from 'jwt-decode';
       };
     },
     async mounted() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.isAuthenticated = true;
+      }
+
       try {
-        const token = localStorage.getItem('token');
-        if (token) {
-          this.isAuthenticated = true;
-          const decodedToken = jwtDecode(token);
-          console.log(decodedToken);
-          this.currentUser = "blm";
-        }
         const response = await fetch('http://localhost:8080/article/all');
         this.articles = await response.json();
         this.articles.forEach(article => {
@@ -127,9 +123,8 @@ import jwtDecode from 'jwt-decode';
             })
 
             if (response.ok){
-              const newComment = await response.json();
-              this.comments.push(newComment);
               this.newComment = '';
+              this.fetchComments(article.id);
             } else {
               console.log("error: ", response);
             }
