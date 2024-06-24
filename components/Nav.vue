@@ -1,28 +1,28 @@
 <template>
   <nav>
       <ul>
-        <li :class="{ 'active': isActive('/') }">
-          <a href="/">
+        <li :class="{ 'active': isActive('/') }" class="text-2xl">
+          <NuxtLink to="/">
             <i class="fas fa-home text-white"></i>
-          </a>
+          </NuxtLink>
         </li>
-        <li v-if="isLoggedIn" :class="{ 'active': isActive('/manageArticle') }">
-          <a href="/manageArticle">Manage Articles</a>
+        <li :class="{ 'active': isActive('/articlePreview') }" class="text-2xl">
+          <NuxtLink to="/articlePreview">
+            <i class="fas fa-book text-white"></i>
+          </NuxtLink>
         </li>
-        <li class="ml-4">
-          <a href="/searchPage">
-            <i class="fas fa-search text-white"></i>
-          </a>
+        <li v-if="isLoggedIn" :class="{ 'active': isActive('/manageArticle') }" class="text-lg">
+          <NuxtLink to="/manageArticle">My Articles</NuxtLink>
         </li>
         <li>
-          <button @click="toggleAuthPopup" class="focus:outline-none p-4">
+          <button @click="toggleAuthPopup" class="focus:outline-none p-4 hover:bg-gray-900 text-2xl">
             <i class="fas fa-user text-white"></i>
           </button>
         </li>
       </ul>
-      <div v-if="showAuthPopup" class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
-        <div v-if="isLoggedIn" @click="logout" class="p-4 cursor-pointer hover:bg-gray-200 rounded-lg">Logout</div>
-        <div v-else @click="redirectToLogin" class="p-4 cursor-pointer hover:bg-gray-200 rounded-lg">Login</div>
+      <div v-if="showAuthPopup" class="absolute right-0 w-48 bg-white-cstm shadow-lg rounded-md z-50 mr-0 mt-0 font-bold p-4 cursor-pointer hover:bg-gray-200">
+        <div v-if="isLoggedIn" @click="logout">Logout</div>
+        <div v-else @click="redirectToLogin">Login</div>
       </div>
   </nav>
 </template>
@@ -31,16 +31,6 @@
 import { useRoute } from 'vue-router';
 
 export default {
-props: {
-  searchQuery: {
-    type: String,
-    required: true
-  },
-  filterArticles: {
-    type: Function,
-    required: true
-  }
-  },
 data() {
   return {
     isLoggedIn: true,
@@ -61,7 +51,7 @@ mounted() {
 },
 methods: {
   checkLogin() {
-    console.log("token:", localStorage.getItem('token'));
+    // console.log("token:", localStorage.getItem('token'));
     this.isLoggedIn = !!localStorage.getItem('token');
   },
   logout() {

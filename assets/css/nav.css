@@ -1,9 +1,19 @@
+nav {
+  position: fixed; 
+  top: 0;
+  width: 100%; 
+  background-color: #333; 
+  z-index: 1000;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    height: 60px;
+    align-content: center;
   }
   
   li {
@@ -28,4 +38,8 @@ ul {
   
   .active {
     background-color: #7e807f;
+  }
+
+  .bg-white-cstm {
+    background-color: #f9f9f9;
   }
