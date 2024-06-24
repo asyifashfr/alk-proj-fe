@@ -3,7 +3,7 @@
     <div class="flex flex-col lg:flex-row gap-8 px-4">
       <!-- Article Preview -->
       <div class="w-full lg:w-1/2 mb-20" v-if="articles && articles.length > 0">
-        <div class="p-6 bg-white shadow-lg rounded-md">
+        <div class="p-6 bg-white">
           <h2 class="text-lg font-semibold mb-1 text-center">{{ mainArticle.title }}</h2>
           <span class="text-gray-600 text-sm block mb-4 text-center">by {{ mainArticle.username }}</span>
           <div class="text-gray-700 mb-4" v-html="mainArticle.content"></div>
@@ -214,11 +214,6 @@ export default {
         this.filteredArticles.sort((a, b) => b.id - a.id); 
       } else if (this.sortOrder === 'latest') {
         this.filteredArticles.sort((a, b) => a.id - b.id); 
-      }
-      if (this.filteredArticles.length > 0) {
-        this.setMainArticle(this.filteredArticles[0]);
-      } else {
-        this.mainArticle = null;
       }
     },
     getRandomArticles(count) {
