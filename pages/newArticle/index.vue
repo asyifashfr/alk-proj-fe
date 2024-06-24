@@ -6,6 +6,28 @@
     <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
       <form @submit.prevent="addArticle">
         <div class="mb-4">
+          <div v-if="newArticle.image" class="flex justify-center mb-8">
+            <img :src="imageUrl" alt="Selected Image" class="max-w-xs rounded-md" style="max-height: 256px; width: auto;">
+          </div>
+          <div class="flex flex-col items-center">
+            <!-- <span v-if="newArticle.image" class="ml-2 mb-4">{{ newArticle.image.name }}</span> -->
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              @change="onImageChange"
+              class="hidden"
+            />
+            <label
+              for="image"
+              class="text-black cursor-pointer w-16 h-16 flex items-center justify-center bg-white border border-black rounded-full hover:bg-gray-100"
+            >
+              <i class="fas fa-camera text-xl"></i>
+            </label>
+            <span class="block text-gray-700 mt-2">Upload Image</span>
+          </div>
+        </div>
+        <div class="mb-4">
           <label for="title" class="block text-gray-700">Title</label>
           <input
             v-model="newArticle.title"
@@ -17,7 +39,6 @@
         </div>
         <div class="mb-4">
           <label for="content" class="block text-gray-700">Content</label>
-          <!-- <div id="quill-editor" class="w-full p-2 border border-gray-300 rounded mt-1"></div> -->
           <textarea
             v-model="newArticle.content"
             id="content"
@@ -39,38 +60,60 @@
   </div>
 </template>
 
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import Quill from 'quill';
-import 'quill/dist/quill.snow.css';
 
 const newArticle = ref({
   title: '',
-  content: ''
+  content: '',
+  image: null
 });
+
+const imageUrl = ref(null);
+
+// const toolbarOptions = [
+//     ['bold', 'italic', 'underline', 'strike'],        
+//     ['blockquote', 'code-block'],
+//     ['link', 'image', 'video', 'formula'],
+  
+//     [{ 'header': 1 }, { 'header': 2 }],               
+//     [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+//     [{ 'script': 'sub'}, { 'script': 'super' }],      
+//     [{ 'indent': '-1'}, { 'indent': '+1' }],          
+//     [{ 'direction': 'rtl' }],                         
+  
+//     [{ 'size': ['small', false, 'large', 'huge'] }],  
+//     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+//     [{ 'color': [] }, { 'background': [] }],          
+//     [{ 'font': [] }],
+//     [{ 'align': [] }],
+  
+//     ['clean']                                         
+//   ];
+  
+//   const options = ref({
+//     modules: {
+//       toolbar: toolbarOptions
+//     },
+//     placeholder: 'Compose here...',
+//     readOnly: false,
+//     theme: 'snow'
+//   });
 
 const router = useRouter();
-let quill;
 
-onMounted(() => {
-  quill = new Quill('#quill-editor', {
-    theme: 'snow',
-    placeholder: 'Compose an epic...',
-    modules: {
-      toolbar: [
-        [{ header: [1, 2, false] }],
-        ['bold', 'italic', 'underline'],
-        ['link', 'blockquote', 'code-block', 'image'],
-        [{ list: 'ordered' }, { list: 'bullet' }]
-      ]
-    }
-  });
-
-  quill.on('text-change', () => {
-    newArticle.value.content = quill.root.innerHTML;
-  });
-});
+const onImageChange = (event) => {
+  const file = event.target.files[0];
+  if (file && file.type.startsWith('image/')) {
+    newArticle.value.image = file;
+    imageUrl.value = URL.createObjectURL(file);
+  } else {
+    alert('Please select a valid image file.');
+  }
+};
 
 const addArticle = async () => {
   const token = localStorage.getItem('token');
@@ -110,6 +153,6 @@ const addArticle = async () => {
 @import 'quill/dist/quill.snow.css';
 
 #quill-editor {
-  height: 200px; /* Set the desired height for the editor */
+  height: 200px;
 }
 </style>

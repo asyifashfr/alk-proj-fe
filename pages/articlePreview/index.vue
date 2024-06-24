@@ -66,8 +66,8 @@
             <option value="likes">Most Liked</option>
           </select>
         </div>
-        <div class="w-full space-y-4 cursor-pointer overflow-y-auto max-h-maxh-screen" v-if="articles && articles.length > 0">
-          <div v-for="(article, index) in articles" :key="index" class="p-4 bg-white rounded-lg shadow-md hover:bg-gray-200" @click="setMainArticle(article)">
+        <div class="w-full space-y-4 cursor-pointer overflow-y-auto max-h-maxh-screen" v-if="filteredArticles && filteredArticles.length > 0">
+          <div v-for="(article, index) in filteredArticles" :key="index" class="p-4 bg-white rounded-lg shadow-md hover:bg-gray-200" @click="setMainArticle(article)">
             <h3 class="text-md font-medium mb-1">{{ article.title }} <span class="text-gray-400 text-sm ml-1">by {{ article.username }}</span></h3>
             <p class="text-gray-600 text-sm">{{ truncateText(article.content) }}</p>            
           </div>
@@ -211,9 +211,9 @@ export default {
       } else if (this.sortOrder === 'likes') {
         this.filteredArticles.sort((a, b) => b.likes - a.likes);
       } else if (this.sortOrder === 'newest') {
-        this.filteredArticles.sort((a, b) => b.id - a.id); // Newest first
+        this.filteredArticles.sort((a, b) => b.id - a.id); 
       } else if (this.sortOrder === 'latest') {
-        this.filteredArticles.sort((a, b) => a.id - b.id); // Latest first
+        this.filteredArticles.sort((a, b) => a.id - b.id); 
       }
       if (this.filteredArticles.length > 0) {
         this.setMainArticle(this.filteredArticles[0]);
