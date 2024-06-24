@@ -73,36 +73,6 @@ const newArticle = ref({
 
 const imageUrl = ref(null);
 
-// const toolbarOptions = [
-//     ['bold', 'italic', 'underline', 'strike'],        
-//     ['blockquote', 'code-block'],
-//     ['link', 'image', 'video', 'formula'],
-  
-//     [{ 'header': 1 }, { 'header': 2 }],               
-//     [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-//     [{ 'script': 'sub'}, { 'script': 'super' }],      
-//     [{ 'indent': '-1'}, { 'indent': '+1' }],          
-//     [{ 'direction': 'rtl' }],                         
-  
-//     [{ 'size': ['small', false, 'large', 'huge'] }],  
-//     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-  
-//     [{ 'color': [] }, { 'background': [] }],          
-//     [{ 'font': [] }],
-//     [{ 'align': [] }],
-  
-//     ['clean']                                         
-//   ];
-  
-//   const options = ref({
-//     modules: {
-//       toolbar: toolbarOptions
-//     },
-//     placeholder: 'Compose here...',
-//     readOnly: false,
-//     theme: 'snow'
-//   });
-
 const router = useRouter();
 
 const onImageChange = (event) => {
@@ -117,12 +87,40 @@ const onImageChange = (event) => {
 
 const addArticle = async () => {
   const token = localStorage.getItem('token');
+  if (newArticle.title === '' || newArticle.content === '' || imageUrl === null) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
   if (!token) {
     alert('You must be logged in to post an article.');
     return;
   }
 
   try {
+    let imageUrl = '';
+
+    if (newArticle.value.image) {
+      const formData = new FormData();
+      formData.append('image', newArticle.value.image);
+
+      const imgResponse = await fetch('http://localhost:8080/article/create/img', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      })
+  
+      if (!imgResponse.ok) {
+        throw new Error('Failed to upload image');
+      }
+  
+      const imgData = await imgResponse.json();
+      imageUrl = imgData.photo_url;
+      console.log('Image uploaded:', imageUrl);
+    }
+
     const response = await fetch('http://localhost:8080/article/create', {
       method: 'POST',
       headers: {
@@ -132,6 +130,7 @@ const addArticle = async () => {
       body: JSON.stringify({
         title: newArticle.value.title,
         content: newArticle.value.content,
+        photo_url: imageUrl
       })
     });
 
