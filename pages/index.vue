@@ -9,7 +9,7 @@
       <div class="text-center mb-8">
         <h2 class="text-3xl font-bold flex justify-start p-8 ml-4">Check This Out</h2>
         <div class="flex justify-around mt-4 gap-8 mr-10 ml-10 mb-8">
-          <div v-for="(article, index) in randomArticles" :key="index" class="w-1/3 p-4 bg-white shadow-lg rounded-lg hover:shadow-2xl border border-black">
+          <div v-for="(article, index) in randomArticles" :key="index" class="w-1/3 p-4 bg-white shadow-lg rounded-lg hover:shadow-2xl border border-black" @click="goToArticlePreview(article)">
             <h3 class="text-lg font-semibold mb-1">{{ article.title }}</h3>
             <span class="text-gray-600 text-sm block mb-4">by {{ article.username }}</span>
             <p class="text-gray-700">{{ truncateText(article.content, 100) }}</p>

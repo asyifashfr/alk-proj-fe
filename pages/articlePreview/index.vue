@@ -67,12 +67,7 @@
           <div class="w-full space-y-4 cursor-pointer overflow-y-auto max-h-maxh-screen" v-if="articles && articles.length > 0">
             <div v-for="(article, index) in articles" :key="index" class="p-4 bg-white rounded-lg shadow-md hover:bg-gray-200"  @click="setMainArticle(article)">
               <h3 class="text-md font-medium mb-1">{{ article.title }} <span class="text-gray-400 text-sm ml-1">by {{ article.username }}</span></h3>
-              <p class="text-gray-600 text-sm">{{ truncateText(article.content) }}</p>
-              <i class="fas fa-heart p-2 rounded-md hover:bg-gray-200"></i>
-              <span>{{ article.likes }}</span>
-              <i class="fas fa-comment p-2 rounded-md hover:bg-gray-200"></i>
-              <span>{{ comments.length }}</span>
-            
+              <p class="text-gray-600 text-sm">{{ truncateText(article.content) }}</p>            
             </div>
           </div>
           <div v-else class="text-gray-600 text-center">No articles found.</div>
@@ -102,6 +97,8 @@ export default {
       if (token) {
         this.isAuthenticated = true;
       }
+
+      const articleId = this.$route.query.articleId;
 
       try {
         const response = await fetch('http://localhost:8080/article/all');
