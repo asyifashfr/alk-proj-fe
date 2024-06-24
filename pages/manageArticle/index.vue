@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 mt-20">
     <header class="text-2xl font-bold mb-8 text-center">
       Manage My Articles
     </header>
@@ -24,8 +24,8 @@
     <div v-else class="text-center text-gray-600">
       No articles found
     </div>
-    <button @click="goToNewArticle" class="fixed bottom-8 right-10 bg-blue-500 text-white font-bold p-6 rounded-full shadow-lg hover:bg-blue-600 large-button">
-      Add New Article
+    <button @click="goToNewArticle" class="fixed bottom-8 right-10 w-48 bg-gradient-to-r from-yellow-300 to-yellow-600 text-white font-bold p-6 rounded-full text-lg shadow-lg hover:bg-yellow-600">
+      Create Article
     </button>
   </div>
 </template>
