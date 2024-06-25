@@ -11,7 +11,7 @@
             <i class="fas fa-book text-white"></i>
           </NuxtLink>
         </li>
-        <li v-if="isLoggedIn" :class="{ 'active': isActive('/manageArticle') }" class="text-lg">
+        <li v-if="isLoggedIn" :class="{ 'active': isActive('/manageArticle') }" class="text-lg p-1">
           <NuxtLink to="/manageArticle">My Articles</NuxtLink>
         </li>
         <li>
@@ -71,4 +71,9 @@ methods: {
 
 <style scoped>
 @import '~/assets/css/nav.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+nav {
+  font-family: 'Roboto', sans-serif;
+}
 </style>

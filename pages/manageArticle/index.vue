@@ -109,5 +109,24 @@ router.push('/newArticle');
 };
 </script>
 
-<style scoped>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
+.container {
+  font-family: 'Roboto', sans-serif; 
+}
+
+header, h3, button {
+  font-family: 'Playfair Display', serif; 
+}
+
+.text-gray-600, p {
+  font-family: 'Roboto', sans-serif; 
+}
+
+.fixed {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold; 
+}
 </style>
+

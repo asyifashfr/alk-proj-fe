@@ -231,14 +231,25 @@ export default {
 </script>
 
 <style scoped>
-  ::-webkit-scrollbar {
-    width: 8px;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap');
+
+h1, h2, h3, .header {
+  font-family: 'Playfair Display', serif;
+}
+
+body, .text-gray-700, p {
+  font-family: 'Roboto', sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-    background: #e0e0e0;
-    border-radius: 4px;
+  background: #e0e0e0;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #a9a9a9;
+  background: #a9a9a9;
 }
 </style>
+

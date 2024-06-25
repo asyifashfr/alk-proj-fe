@@ -86,6 +86,23 @@ export default {
 }
 </script>
 
-<style scoped>
-  @import '~/assets/css/home.css';
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap');
+
+  body, .text-gray-700 {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  h1, h2, h3, button {
+    font-family: 'Playfair Display', serif; 
+  }
+
+  .bg-gradient-to-r {
+    font-weight: 400;
+  }
+
+  .text-lg, .text-3xl {
+    font-weight: 700;
+  }
+
 </style>
