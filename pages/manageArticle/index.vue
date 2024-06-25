@@ -10,7 +10,7 @@
         class="p-4 bg-white rounded-lg shadow-md flex flex-col justify-between"
       >
         <div class="w-full h-28 flex-shrink-0 mr-4 bg-gray-200 mb-4">
-          <NuxtImg :src="article.photo_url" alt="Article Image" class="w-full h-full object-cover rounded-md" />
+          <NuxtImg :src=getImageUrl(article.photo_url) alt="Article Image" class="w-full h-full object-cover rounded-md" />
         </div>
         <div>
           <h3 class="text-lg font-medium mb-2">{{ article.title }}</h3>
@@ -42,6 +42,10 @@ import { useRouter } from 'vue-router';
 const articles = ref([]);
 
 const router = useRouter();
+
+const getImageUrl = (photoUrl) => {
+  return photoUrl ? `http://localhost:8080${photoUrl}` : 'https://via.placeholder.com/150';
+};
 
 onMounted(async () => {
 const token = localStorage.getItem('token');
