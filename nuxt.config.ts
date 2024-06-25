@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
-  css: ['@fortawesome/fontawesome-free/css/all.css'],
+  modules: ['@nuxtjs/tailwindcss', "@nuxt/image"],
+  css: ['@fortawesome/fontawesome-free/css/all.css']
 })
