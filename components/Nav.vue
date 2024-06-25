@@ -70,10 +70,52 @@ methods: {
 </script>
 
 <style scoped>
-@import '~/assets/css/nav.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 nav {
+  position: fixed; 
+  top: 0;
+  width: 100%; 
+  background-color: #333; 
+  z-index: 1000;
   font-family: 'Roboto', sans-serif;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    height: 60px;
+    align-content: center;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111;
+  }
+  
+  li:last-child {
+    float: right;
+  }
+  
+  .active {
+    background-color: #7e807f;
+  }
+
+  .bg-white-cstm {
+    background-color: #f9f9f9;
+  }
 </style>
