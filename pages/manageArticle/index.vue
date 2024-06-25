@@ -9,8 +9,13 @@
         :key="index"
         class="p-4 bg-white rounded-lg shadow-md flex flex-col justify-between"
       >
-        <h3 class="text-lg font-medium mb-2">{{ article.title }}</h3>
-        <p class="text-gray-600 mb-4">{{ truncateText(article.content) }}</p>
+        <div class="w-full h-28 flex-shrink-0 mr-4 bg-gray-200 mb-4">
+          <NuxtImg :src="article.photo_url" alt="Article Image" class="w-full h-full object-cover rounded-md" />
+        </div>
+        <div>
+          <h3 class="text-lg font-medium mb-2">{{ article.title }}</h3>
+          <p class="text-gray-600 mb-4">{{ truncateText(article.content) }}</p>
+        </div>
         <div class="flex justify-end space-x-2">
           <button @click="editArticle(index)" class="bg-gray-300 text-gray-800 p-2 rounded-md hover:bg-gray-400">
             <i class="fas fa-edit"></i>

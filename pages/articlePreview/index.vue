@@ -4,6 +4,9 @@
       <!-- Article Preview -->
       <div class="w-full lg:w-1/2 mb-20" v-if="articles && articles.length > 0">
         <div class="p-6 bg-white">
+          <div class="w-full h-48 flex-shrink-0 mr-4 bg-gray-200 mb-8">
+              <NuxtImg :src="mainArticle.photo_url" alt="Main Article Image" class="w-full h-full object-cover rounded-md" />
+          </div>
           <h2 class="text-lg font-semibold mb-1 text-center">{{ mainArticle.title }}</h2>
           <span class="text-gray-600 text-sm block mb-4 text-center">by {{ mainArticle.username }}</span>
           <div class="text-gray-700 mb-4" v-html="mainArticle.content"></div>
@@ -66,10 +69,15 @@
             <option value="likes">Most Liked</option>
           </select>
         </div>
-        <div class="w-full space-y-4 cursor-pointer overflow-y-auto max-h-maxh-screen" v-if="filteredArticles && filteredArticles.length > 0">
-          <div v-for="(article, index) in filteredArticles" :key="index" class="p-4 bg-white rounded-lg shadow-md hover:bg-gray-200" @click="setMainArticle(article)">
-            <h3 class="text-md font-medium mb-1">{{ article.title }} <span class="text-gray-400 text-sm ml-1">by {{ article.username }}</span></h3>
-            <p class="text-gray-600 text-sm">{{ truncateText(article.content) }}</p>            
+        <div class="w-full space-y-4 cursor-pointer overflow-y-auto" style="max-height: calc(100vh * 3 / 5);"v-if="filteredArticles && filteredArticles.length > 0">
+          <div v-for="(article, index) in filteredArticles" :key="index" class="p-4 bg-white rounded-lg shadow-md hover:bg-gray-200 flex items-center" @click="setMainArticle(article)">
+            <div class="w-28 h-28 flex-shrink-0 mr-4 bg-gray-200">
+              <NuxtImg :src="article.photo_url" alt="Article Image" class="w-full h-full object-cover rounded-md" />
+            </div>
+            <div>
+              <h3 class="text-md font-medium mb-1">{{ article.title }} <span class="text-gray-400 text-sm ml-1">by {{ article.username }}</span></h3>
+              <p class="text-gray-600 text-sm">{{ truncateText(article.content) }}</p>
+            </div>
           </div>
         </div>
         <div v-else class="text-gray-600 text-center">No articles found.</div>
@@ -84,7 +92,6 @@ export default {
     return {
       articles: [],
       filteredArticles: [],
-      randomArticles: [],
       comments: [],
       mainArticle: null,
       newComment: '',
