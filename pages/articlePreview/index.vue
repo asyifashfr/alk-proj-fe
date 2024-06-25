@@ -1,11 +1,11 @@
 <template>
-  <div class="mx-auto py-20" style="min-height: 100vh">
+  <div class="mx-auto py-20" style="height: 100vh; overflow: hidden;">
     <div class="flex flex-col lg:flex-row gap-8 px-4">
       <!-- Article Preview -->
-      <div class="w-full lg:w-1/2 mb-20" v-if="articles && articles.length > 0">
+      <div class="w-full lg:w-1/2 overflow-y-auto" style="max-height: 85vh;" v-if="articles && articles.length > 0">
         <div class="p-6 bg-white">
-          <div class="w-full h-full flex-shrink-0 mr-4 bg-gray-200 mb-8">
-              <NuxtImg :src=getImageUrl(mainArticle.photo_url) alt="Main Article Image" class="w-full h-full object-cover rounded-md" />
+          <div class="flex justify-center items-center w-full h-60 rounded-md mb-8">
+              <NuxtImg :src="getImageUrl(mainArticle.photo_url)" alt="Main Article Image" class="h-full object-contain rounded-md" />
           </div>
           <h2 class="text-lg font-semibold mb-1 text-center">{{ mainArticle.title }}</h2>
           <span class="text-gray-600 text-sm block mb-4 text-center">by {{ mainArticle.username }}</span>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <!-- All Articles -->
-      <div class="lg:w-1/2 space-y-4 cursor-pointer max-h-maxh-screen">
+      <div class="lg:w-1/2 space-y-4 cursor-pointer">
         <header class="text-2xl text-white font-bold text-center rounded-md sticky top-0 bg-black z-10 p-4">
           Our Articles
         </header>
@@ -69,8 +69,8 @@
             <option value="likes">Most Liked</option>
           </select>
         </div>
-        <div class="w-full space-y-4 cursor-pointer overflow-y-auto" style="max-height: calc(100vh * 3 / 5);"v-if="filteredArticles && filteredArticles.length > 0">
-          <div v-for="(article, index) in filteredArticles" :key="index" class="p-4 bg-white rounded-lg shadow-md hover:bg-gray-200 flex items-center" @click="setMainArticle(article)">
+        <div class="w-full space-y-4 cursor-pointer overflow-y-auto" style="max-height: 65vh;" v-if="filteredArticles && filteredArticles.length > 0">
+          <div v-for="(article, index) in filteredArticles" :key="index" class="p-4 bg-white rounded-lg shadow-md hover:bg-gray-200 flex items-center mr-2" @click="setMainArticle(article)">
             <div class="w-28 h-28 flex-shrink-0 mr-4 bg-gray-200">
               <NuxtImg :src=getImageUrl(article.photo_url) alt="Article Image" class="w-full h-full object-cover rounded-md" />
             </div>
@@ -231,5 +231,14 @@ export default {
 </script>
 
 <style scoped>
-  @import '~/assets/css/home.css';
+  ::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #a9a9a9;
+}
 </style>
