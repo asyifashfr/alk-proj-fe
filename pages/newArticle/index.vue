@@ -149,9 +149,5 @@ const addArticle = async () => {
 </script>
 
 <style scoped>
-@import 'quill/dist/quill.snow.css';
 
-#quill-editor {
-  height: 200px;
-}
 </style>
